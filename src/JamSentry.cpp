@@ -30,6 +30,8 @@
 #include <ArduinoJson.h>  //https://github.com/bblanchon/ArduinoJson
 #include <Wire.h>
 
+#include "JamSentry.h"
+
 #define IFTTTHOST "maker.ifttt.com"  //Host address for sending IFTTT triggers
 #define IFTTTPORT 80                 //Port for sending IFTTT triggers
 //Various configuration parameters and lengths. These are stored in SPIFFS
@@ -197,7 +199,7 @@ void setActivityThresholds() {  //Sets the various thresholds that guide the mac
     flowState = STATE_IDLE;
   }
   motorActivityCount = 0;
-  performUnjamAction;
+  performUnjamAction();
 }
 
 void validateConfigParms() {  //Performs some rudimentary (non exhaustive) checks on user input values
