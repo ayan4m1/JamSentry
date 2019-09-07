@@ -71,6 +71,7 @@ ESP8266WebServer server(80);  //The server is hosted at port 80 by the Jam Sentr
 
 const short int BUILTIN_LED1 = 0;   //GPIO
 const short int RUNOUT_ALARM = 15;  //GPI15
+#define FILE_CONFIG "/config.json"
 //This state machine for JamSentry States.  State transitions are announced on the Serial Monitor
 #define STATE_IDLE 0
 #define STATE_POTENTIAL_EXTRUSION 1
@@ -175,7 +176,7 @@ void saveConfig() {  //Saves configuration parameters to disk.
   json["ifttt_alert_if_done"] = ifttt_alert_if_done;
   json["static_ip"] = static_ip;
   json["gateway_ip"] = gateway_ip;
-  File configFile = SPIFFS.open("/config.json", "w");
+  File configFile = SPIFFS.open(FILE_CONFIG, "w");
   if (!configFile) {
     Serial.println("failed to open config file for writing");
   }
@@ -636,10 +637,11 @@ void setup(void) {
 
   if (SPIFFS.begin()) {
     Serial.println("mounted file system");
-    if (SPIFFS.exists("/config.json")) {
+
+    if (SPIFFS.exists(FILE_CONFIG)) {
       //file exists, reading and loading
       Serial.println("reading config file");
-      File configFile = SPIFFS.open("/config.json", "r");
+      File configFile = SPIFFS.open(FILE_CONFIG, "r");
       if (configFile) {
         Serial.println("opened config file");
         size_t size = configFile.size();
