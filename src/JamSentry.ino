@@ -556,6 +556,7 @@ void sendAlert(String hostToAlert, int portToAlert, String eventName) {  //Send 
         }
       }
       if (response) {
+        Serial.println(response);
         Serial.println("IFTTT Successfully sent");
         attemptSuccessful = true;
       } else {
