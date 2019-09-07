@@ -712,9 +712,9 @@ void setup(void) {
   wifiManager.setTimeout(600);
 
   if (!useDHCP) {
-    Serial.print('Static IP to use: ');
+    Serial.print("Static IP to use: ");
     Serial.println(validated_static_ip.toString());
-    Serial.print('Gateway IP to use: ');
+    Serial.print("Gateway IP to use: ");
     Serial.println(validated_gateway_ip.toString());
     wifiManager.setSTAStaticIPConfig(validated_static_ip, validated_gateway_ip, IPAddress(255, 255, 255, 0));
   }
