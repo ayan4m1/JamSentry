@@ -508,7 +508,7 @@ void sendAlert(String hostToAlert, int portToAlert, String eventName) {  //Send 
   if (hostToAlert == IFTTTHOST) {
     value3 = String(random(1000000));  //We need a random value for ITFFF otherwise, it will ignore a trigger that is the same as last time
   }
-  while (!attemptSuccessful & currentAttempt < MAX_ALERT_ATTEMPTS) {
+  while (!attemptSuccessful && currentAttempt < MAX_ALERT_ATTEMPTS) {
     WiFiClient client;
     DynamicJsonBuffer jsonBuffer;
     JsonObject& payload = jsonBuffer.createObject();
@@ -975,11 +975,11 @@ void loop() {
   //  /* Display the results from the Sensors */
   //Serial.print("Mag diff: "); Serial.print(avgMagDiff); Serial.print(",  Luminosity: ");  Serial.print(lightLevel); Serial.print(",  Motor Activity Count: ");  Serial.println(motorActivityCount);
   //State machine
-  if (flowState != STATE_DISABLED & flowState != STATE_NOT_WORKING) {
+  if (flowState != STATE_DISABLED && flowState != STATE_NOT_WORKING) {
     if (flowState == STATE_IDLE) {
       ++continuousIdleSamples;
       //      Serial.print("Continuous Idle: "); Serial.print(continuousIdleSamples); Serial.print(", Continuous Extruding: "); Serial.println(continuousExtrudingSamples);
-      if (continuousIdleSamples >= continuousIdleSamplesThreshold & continuousExtrudingSamples >= continuousExtrudingSamplesThreshold) {
+      if (continuousIdleSamples >= continuousIdleSamplesThreshold && continuousExtrudingSamples >= continuousExtrudingSamplesThreshold) {
         if (useIFTTT & validated_ifttt_alert_if_done) {
           sendAlert(IFTTTHOST, IFTTTPORT, "Done");
           continuousExtrudingSamples = 0;
