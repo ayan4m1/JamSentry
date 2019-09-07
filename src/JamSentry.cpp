@@ -21,7 +21,7 @@
 //needed for library
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
-#include <ESP8266mDNS.h>namecheap
+#include <ESP8266mDNS.h>
 #include <WiFiManager.h>  //https://github.com/tzapu/WiFiManager
 
 #include <Adafruit_HMC5883_U.h>
