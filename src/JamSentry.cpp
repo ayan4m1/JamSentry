@@ -499,10 +499,7 @@ void handleNotFound() {  //Unrecognized request eq. 192.168.1.99/invalid
 
 void sendAlert(String hostToAlert, int portToAlert, String eventName) {  //Send an alert in IFTTT format to the given host and port
   String response = "";
-  bool finishedHeaders = false;
-  bool currentLineIsBlank = true;
   long now;
-  bool avail;
 #define MAX_ALERT_ATTEMPTS 8
   int currentAttempt = 0;
   bool attemptSuccessful = false;
@@ -524,10 +521,7 @@ void sendAlert(String hostToAlert, int portToAlert, String eventName) {  //Send 
     payload["value3"] = value3;
     hostToAlert.toCharArray(gcode_sender_ip_addr, GCODE_SENDER_IP_ADDR_LEN);
     if (client.connect(gcode_sender_ip_addr, portToAlert)) {
-      //Serial.println(".... connected to server");
-      String a = "";
-      char c;
-      int ch_count = 0;
+      // Serial.println("connected to server");
       delay(100);
       Serial.println("POST /trigger/" + eventName + "/with/key/" + validated_ifttt_key);
       client.print("POST /trigger/" + eventName + "/with/key/" + validated_ifttt_key);
@@ -549,12 +543,10 @@ void sendAlert(String hostToAlert, int portToAlert, String eventName) {  //Send 
       //Serial.println(out);
       client.println(out);
       now = millis();
-      avail = false;
       //Serial.println("starting timer");
       while (millis() - now < 1500) {
         while (client.available()) {
           char c = client.read();
-          //Serial.print(c);
           response = response + c;
         }
       }
